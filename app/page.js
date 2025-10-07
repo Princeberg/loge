@@ -71,35 +71,36 @@ function Features() {
 function Popular() {
   const cards = [
     {
-      img: "https://i.pinimg.com/1200x/9c/90/4c/9c904c853181f491a6be1509096115ed.jpg",
+      img: "https://images.pexels.com/photos/7851903/pexels-photo-7851903.jpeg",
       title: "Villa Azur, Pointe-Noire",
       price: "à partir de 1500/nuit",
     },
     {
-      img: "https://i.pinimg.com/736x/39/53/d4/3953d49d0fd807d3b3691901343a006d.jpg",
+      img: "https://images.pexels.com/photos/19836794/pexels-photo-19836794.jpeg",
       title: "Loft Haussmann, Brazzaville",
       price: "à partir de 25000/nuit",
     },
     {
-      img: "https://i.pinimg.com/1200x/0b/30/ab/0b30aba482d289418f887076b8ecae94.jpg",
+      img: "https://images.pexels.com/photos/19899071/pexels-photo-19899071.jpeg",
       title: "Chalet Edelweiss, Brazzaville",
       price: "à partir de 3000/nuit",
     },
     {
-      img: "https://i.pinimg.com/1200x/9c/90/4c/9c904c853181f491a6be1509096115ed.jpg",
+      img: "https://images.pexels.com/photos/7851903/pexels-photo-7851903.jpeg",
       title: "Villa Azur, Pointe-Noire",
       price: "à partir de 1500/nuit",
     },
     {
-      img: "https://i.pinimg.com/736x/39/53/d4/3953d49d0fd807d3b3691901343a006d.jpg",
+      img: "https://images.pexels.com/photos/19836794/pexels-photo-19836794.jpeg",
       title: "Loft Haussmann, Brazzaville",
       price: "à partir de 25000/nuit",
     },
     {
-      img: "https://i.pinimg.com/1200x/0b/30/ab/0b30aba482d289418f887076b8ecae94.jpg",
+      img: "https://images.pexels.com/photos/19899071/pexels-photo-19899071.jpeg",
       title: "Chalet Edelweiss, Brazzaville",
       price: "à partir de 3000/nuit",
     },
+    
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
