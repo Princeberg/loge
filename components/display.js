@@ -13,13 +13,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import noDataFoundAnimation from "@/lotties/no-data.json";
 import supabase from '@/lib/supabase';
+import { cacheManager } from '@/lib/cache';
 
 export default function PropertiesDisplay() {
   const [properties, setProperties] = useState([]);
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [likedProperties, setLikedProperties] = useState(new Set());
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [propertyImages, setPropertyImages] = useState([]);
@@ -34,12 +34,26 @@ export default function PropertiesDisplay() {
   });
   const [currentSlideIndex, setCurrentSlideIndex] = useState({});
 
-  // Charger les produits depuis Supabase
+  // Charger les produits depuis le cache ou Supabase
   const fetchProperties = async () => {
     try {
       setLoading(true);
       setError(null);
 
+      // Essayer de récupérer depuis le cache d'abord
+      const cachedData = await cacheManager.getProduit('all-properties');
+      
+      if (cachedData) {
+        console.log('Données récupérées du cache');
+        setProperties(cachedData);
+        setFilteredProperties(cachedData);
+        initializeSlides(cachedData);
+        setLoading(false);
+        return;
+      }
+
+      // Si pas en cache, charger depuis Supabase
+      console.log('Chargement depuis Supabase...');
       const { data, error } = await supabase
         .from('Produits')
         .select('*')
@@ -47,15 +61,15 @@ export default function PropertiesDisplay() {
 
       if (error) throw error;
 
-      setProperties(data || []);
-      setFilteredProperties(data || []);
+      const propertiesData = data || [];
       
-      // Initialiser les index de slide pour chaque propriété
-      const initialSlides = {};
-      data?.forEach(property => {
-        initialSlides[property.id] = 0;
-      });
-      setCurrentSlideIndex(initialSlides);
+      // Stocker dans le cache
+      await cacheManager.setProduit('all-properties', propertiesData, 15 * 60 * 1000); // 15 minutes
+      
+      setProperties(propertiesData);
+      setFilteredProperties(propertiesData);
+      initializeSlides(propertiesData);
+      
     } catch (err) {
       console.error('Erreur lors du chargement:', err);
       setError(err.message);
@@ -63,6 +77,27 @@ export default function PropertiesDisplay() {
       setLoading(false);
     }
   };
+
+  // Initialiser les index de slide pour chaque propriété
+  const initializeSlides = (propertiesData) => {
+    const initialSlides = {};
+    propertiesData?.forEach(property => {
+      initialSlides[property.id] = 0;
+    });
+    setCurrentSlideIndex(initialSlides);
+  };
+
+  // Fonction pour forcer le rechargement (ignorer le cache)
+  const refreshProperties = async () => {
+    // Supprimer le cache pour forcer le rechargement
+    await cacheManager.deleteProduit('all-properties');
+    await fetchProperties();
+  };
+
+  // Charger au montage du composant
+  useEffect(() => {
+    fetchProperties();
+  }, []);
 
   // Appliquer les filtres et la recherche
   useEffect(() => {

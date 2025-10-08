@@ -16,14 +16,14 @@ const SLIDES = [
   {
     image:
       "https://images.pexels.com/photos/4857775/pexels-photo-4857775.jpeg",
-    title: "Appartements élégants en plein centre-ville",
+    title: "Appartements élégants ",
     caption: "Explorez des appartements modernes et confortables pour vos vacances et séjours.",
     type: "apartment"
   },
   {
     image:
       "https://images.pexels.com/photos/7236957/pexels-photo-7236957.jpeg",
-    title: "Des Bureaux et espaces commerciaux en locations",
+    title: "Des Bureaux et espaces commerciaux",
     caption: "Des espaces commerciaux parfaitement adaptés aux besoins de votre entreprise.",
     type: "office"
   },
@@ -168,8 +168,8 @@ export default function HeroCarousel() {
         </div>
       </div>
 
-      {/* Indicateurs avec icônes personnalisées */}
-      <div className="absolute z-20 bottom-28 md:bottom-16 left-1/2 -translate-x-1/2 flex gap-4">
+      
+      <div className="absolute z-20 bottom-44 md:bottom-16 left-1/2 -translate-x-1/2 flex gap-4">
         {SLIDES.map((slide, i) => (
           <button
             key={i}

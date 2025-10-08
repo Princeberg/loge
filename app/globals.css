@@ -132,4 +132,39 @@
     min-width: 44px;
     min-height: 44px;
   }
+  
+}
+@layer utilities {
+  .clip-roof {
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  }
+  
+  @keyframes progress {
+    0% {
+      width: 0%;
+    }
+    50% {
+      width: 60%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  .animate-progress {
+    animation: progress 3s ease-in-out infinite;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
 }

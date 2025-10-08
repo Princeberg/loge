@@ -15,6 +15,7 @@ import {
 
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
+import Loading from "@/components/loading";
 import CountUp from "@/components/CountUp";
 import AnimateIn from "@/components/AnimateIn";
 import Link from "next/link";
@@ -261,6 +262,8 @@ function CustomCountUp({ type, ...props }) {
 
 export default function Index() {
   return (
+<>
+    <Loading />
     <main className="bg-gradient-to-b from-slate-50 to-white">
   
       <Header />
@@ -497,5 +500,6 @@ export default function Index() {
   </div>
 </footer>
     </main>
+    </>
   );
 }
